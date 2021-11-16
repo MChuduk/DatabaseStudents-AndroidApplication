@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editTextFacultyId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="IDFACULTY"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editTextFaculty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="FACULTY"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextDean"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="DEAN"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextOfficetimetable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="OFFICETIMETABLE"
+        android:inputType="textPersonName" />
+</LinearLayout>
