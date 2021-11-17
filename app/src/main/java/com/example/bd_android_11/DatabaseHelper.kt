@@ -1,10 +1,14 @@
 package com.example.bd_android_11
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.opencsv.CSVReader
+import java.io.InputStreamReader
+import java.util.*
 
-class DatabaseHelper(context: Context?) :
+class DatabaseHelper(val context: Context?) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
@@ -45,6 +49,12 @@ class DatabaseHelper(context: Context?) :
         createTableStudent(db)
         createTableSubject(db)
         createTableProgress(db)
+
+        initDataFrom(db, TABLE_FACULTY, "data/faculties.csv")
+        initDataFrom(db, TABLE_GROUP, "data/groups.csv")
+        initDataFrom(db, TABLE_STUDENT, "data/students.csv")
+        initDataFrom(db, TABLE_SUBJECT, "data/subject.csv")
+        initDataFrom(db, TABLE_PROGRESS, "data/progress.csv")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -110,5 +120,24 @@ class DatabaseHelper(context: Context?) :
                 "$KEY_MARK integer, " +
                 "$KEY_TEACHER text" +
                 ")")
+    }
+
+    private fun initDataFrom(db: SQLiteDatabase?, table : String, file : String) {
+        val assetManager = context?.assets
+        val streamReader = InputStreamReader(assetManager?.open(file), "UTF-8")
+        val cursor = db?.query(table, null, null, null, null, null, null)
+
+        val reader = CSVReader(streamReader)
+        var line = reader.readNext();
+        while (line != null) {
+            val values = ContentValues()
+
+            for((index, column) in cursor?.columnNames?.withIndex()!!){
+                if(index < line.size)
+                values.put(column, line[index])
+            }
+            db.insert(table, null, values)
+            line = reader.readNext()
+        }
     }
 }
