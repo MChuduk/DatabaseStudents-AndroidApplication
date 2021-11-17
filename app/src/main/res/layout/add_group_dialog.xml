@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="IDFACULTY"
+        android:hint="IDGROUP"
         android:inputType="number" />
 
     <EditText
@@ -24,14 +24,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="FACULTY"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/editTextCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="DEAN"
+        android:hint="COURSE"
         android:inputType="textPersonName" />
 
     <EditText
@@ -39,6 +39,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="OFFICETIMETABLE"
+        android:hint="NAME"
         android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="HEAD"
+        android:inputType="number" />
 </LinearLayout>

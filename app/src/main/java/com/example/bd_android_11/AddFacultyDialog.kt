@@ -50,16 +50,10 @@ class AddFacultyDialog : AppCompatDialogFragment() {
         db?.insert(DatabaseHelper.TABLE_FACULTY, null, values)
     }
 
-    private fun getValue(editText: EditText?) : String? {
-        if(editText?.text?.isNotEmpty() == true)
-            return editText.text.toString()
-        return null
-    }
-
     private fun findViews(view : View) {
-        facultyId = view.findViewById(R.id.editTextFacultyId)
+        facultyId = view.findViewById(R.id.editTextGroupId)
         faculty = view.findViewById(R.id.editTextFaculty)
-        facultyDean = view.findViewById(R.id.editTextDean)
-        facultyOfficetimetable = view.findViewById(R.id.editTextOfficetimetable)
+        facultyDean = view.findViewById(R.id.editTextCourse)
+        facultyOfficetimetable = view.findViewById(R.id.editTextGroupName)
     }
 }
