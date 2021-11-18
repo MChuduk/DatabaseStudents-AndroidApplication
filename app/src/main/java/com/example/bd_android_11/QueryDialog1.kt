@@ -2,13 +2,14 @@ package com.example.bd_android_11
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.database.Cursor
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatDialogFragment
 
-class QueryDialog1 : AppCompatDialogFragment() {
+class QueryDialog1(val activity: MainActivity) : AppCompatDialogFragment() {
 
     private var dbHelper : DatabaseHelper? = null
 
@@ -28,6 +29,7 @@ class QueryDialog1 : AppCompatDialogFragment() {
         builder.setTitle("Список группы со средней оценкой для каждого студента по предмету").setView(view)
         builder.setPositiveButton("ОК") { _, _ ->
             run {
+                val queryResult : MutableList<String> = mutableListOf()
                 val group = groupSpinner?.selectedItem.toString()
                 val subject = subjectSpinner?.selectedItem.toString()
 
@@ -52,10 +54,15 @@ class QueryDialog1 : AppCompatDialogFragment() {
                     val subjectNameIndex = cursor.getColumnIndex("AVERAGE MARK")
 
                     do {
-
+                        val row = "${cursor.getColumnName(idStudentIndex)}: ${cursor.getString(idStudentIndex)} \n" +
+                                "${cursor.getColumnName(idGroupIndex)}: ${cursor.getString(idGroupIndex)} \n" +
+                                "${cursor.getColumnName(studentNameIndex)}: ${cursor.getString(studentNameIndex)} \n" +
+                                "${cursor.getColumnName(subjectNameIndex)}: ${cursor.getString(subjectNameIndex)}"
+                        queryResult.add(row)
                     } while (cursor.moveToNext())
                 }
                 cursor?.close()
+                activity.setQueryResult(queryResult)
             }
         }
         return builder.create()
