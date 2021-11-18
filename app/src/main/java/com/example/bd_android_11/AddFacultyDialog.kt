@@ -21,6 +21,7 @@ class AddFacultyDialog : AppCompatDialogFragment() {
         dbHelper = DatabaseHelper(context)
 
         val builder = AlertDialog.Builder(activity)
+
         val view = layoutInflater.inflate(R.layout.add_faculty_dialog, null)
         findViews(view)
 
@@ -42,12 +43,12 @@ class AddFacultyDialog : AppCompatDialogFragment() {
         val db = dbHelper?.writableDatabase
 
         val values = ContentValues()
-        values.putIntIfExists(DatabaseHelper.KEY_FACULTY_ID, id);
-        values.putStringIfExists(DatabaseHelper.KEY_FACULTY, faculty)
-        values.putStringIfExists(DatabaseHelper.KEY_DEAN, dean)
-        values.putStringIfExists(DatabaseHelper.KEY_OFFICETIMETABLE, officetable)
+        values.putIntIfExists("IDFACULTY", id);
+        values.putStringIfExists("FACULTY", faculty)
+        values.putStringIfExists("DEAN", dean)
+        values.putStringIfExists("OFFICETIMETABLE", officetable)
 
-        db?.insert(DatabaseHelper.TABLE_FACULTY, null, values)
+        db?.insert("FACULTIES", null, values)
     }
 
     private fun findViews(view : View) {

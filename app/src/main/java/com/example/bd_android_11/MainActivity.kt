@@ -19,9 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.addFaculty -> {
-                val addFacultyDialog = AddFacultyDialog()
-                addFacultyDialog.show(supportFragmentManager, "add_faculty_dialog")
+            R.id.query1 -> {
+                val queryDialog = QueryDialog1()
+                queryDialog.show(supportFragmentManager, "query1")
             }
         }
         return super.onOptionsItemSelected(item)

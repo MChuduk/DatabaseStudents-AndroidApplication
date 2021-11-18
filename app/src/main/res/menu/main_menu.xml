@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/addFaculty"
-        android:title="Добавить факультет" />
+        android:id="@+id/query1"
+        android:title="•	Список группы со средней оценкой для каждого студента по предмету" />
 </menu>
