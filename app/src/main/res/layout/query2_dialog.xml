@@ -13,10 +13,10 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Группа" />
+            android:text="Студент" />
 
         <Spinner
             android:id="@+id/facultySpinner"
@@ -44,6 +44,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/startDateEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Начало"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:width="100dp"
+            android:gravity="center_horizontal"
+            android:text="-"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/endDateEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Конец"
+            android:inputType="date" />
+
     </LinearLayout>
 
 </LinearLayout>

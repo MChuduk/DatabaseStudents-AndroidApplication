@@ -1,13 +1,15 @@
-package com.example.bd_android_11
+package com.example.bd_android_11.queryDialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.database.Cursor
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatDialogFragment
+import com.example.bd_android_11.DatabaseHelper
+import com.example.bd_android_11.MainActivity
+import com.example.bd_android_11.R
 
 class QueryDialog1(val activity: MainActivity) : AppCompatDialogFragment() {
 
@@ -26,7 +28,7 @@ class QueryDialog1(val activity: MainActivity) : AppCompatDialogFragment() {
         setupSpinner(groupSpinner, "SELECT GROUPNAME FROM GROUPS")
         setupSpinner(subjectSpinner, "SELECT SUBJECTNAME FROM SUBJECTS")
         
-        builder.setTitle("Список группы со средней оценкой для каждого студента по предмету").setView(view)
+        builder.setTitle("Средняя оценка для студентов из группы").setView(view)
         builder.setPositiveButton("ОК") { _, _ ->
             run {
                 val queryResult : MutableList<String> = mutableListOf()
@@ -85,7 +87,7 @@ class QueryDialog1(val activity: MainActivity) : AppCompatDialogFragment() {
     }
 
     private fun findViews(view : View) {
-        groupSpinner = view.findViewById(R.id.groupSpinner)
+        groupSpinner = view.findViewById(R.id.facultySpinner)
         subjectSpinner = view.findViewById(R.id.subjectSpinner)
     }
 }

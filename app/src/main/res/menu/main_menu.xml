@@ -3,5 +3,14 @@
 
     <item
         android:id="@+id/query1"
-        android:title="•	Список группы со средней оценкой для каждого студента по предмету" />
+        android:title="Средняя оценка для студентов из группы" />
+    <item
+        android:id="@+id/query2"
+        android:title="Средняя оценка для студента" />
+    <item
+        android:id="@+id/query3"
+        android:title="Средняя оценка для группы" />
+    <item
+        android:id="@+id/query4"
+        android:title="Список лучших студентов" />
 </menu>

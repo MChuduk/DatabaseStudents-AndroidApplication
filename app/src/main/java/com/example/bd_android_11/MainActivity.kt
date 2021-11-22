@@ -6,6 +6,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bd_android_11.queryDialogs.QueryDialog1
+import com.example.bd_android_11.queryDialogs.QueryDialog2
+import com.example.bd_android_11.queryDialogs.QueryDialog3
+import com.example.bd_android_11.queryDialogs.QueryDialog4
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +32,18 @@ class MainActivity : AppCompatActivity() {
             R.id.query1 -> {
                 val queryDialog = QueryDialog1(this)
                 queryDialog.show(supportFragmentManager, "query1")
+            }
+            R.id.query2 -> {
+                val queryDialog = QueryDialog2(this)
+                queryDialog.show(supportFragmentManager, "query2")
+            }
+            R.id.query3 -> {
+                val queryDialog = QueryDialog3(this)
+                queryDialog.show(supportFragmentManager, "query3")
+            }
+            R.id.query4 -> {
+                val queryDialog = QueryDialog4(this)
+                queryDialog.show(supportFragmentManager, "query4")
             }
         }
         return super.onOptionsItemSelected(item)

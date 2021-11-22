@@ -5,6 +5,10 @@
       <map>
         <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/layout/activity_main.xml" value="0.23052536231884058" />
         <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/layout/add_group_dialog.xml" value="0.23958333333333334" />
+        <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/layout/query1_dialog.xml" value="0.275" />
+        <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/layout/query2_dialog.xml" value="0.275" />
+        <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/layout/query3_dialog.xml" value="0.275" />
+        <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/layout/query4_dialog.xml" value="0.2869791666666667" />
         <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/layout/query_item.xml" value="0.275" />
         <entry key="..\:/BD_Android/BD_Android_11/app/src/main/res/menu/main_menu.xml" value="0.275" />
       </map>
