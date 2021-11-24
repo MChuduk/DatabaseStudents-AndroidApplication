@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.bd_android_11.DatabaseHelper
 import com.example.bd_android_11.MainActivity
 import com.example.bd_android_11.R
+import com.example.bd_android_11.datePickers.*
 
 class QueryDialog1(val activity: MainActivity) : AppCompatDialogFragment() {
 
@@ -27,7 +28,7 @@ class QueryDialog1(val activity: MainActivity) : AppCompatDialogFragment() {
 
         setupSpinner(groupSpinner, "SELECT GROUPNAME FROM GROUPS")
         setupSpinner(subjectSpinner, "SELECT SUBJECTNAME FROM SUBJECTS")
-        
+
         builder.setTitle("Средняя оценка для студентов из группы").setView(view)
         builder.setPositiveButton("ОК") { _, _ ->
             run {

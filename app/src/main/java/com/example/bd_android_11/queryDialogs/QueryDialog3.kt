@@ -28,6 +28,7 @@ class QueryDialog3(val activity: MainActivity) : AppCompatDialogFragment()  {
         val view = layoutInflater.inflate(R.layout.query3_dialog, null)
         findViews(view)
 
+
         setupSpinner(groupSpinner, "SELECT GROUPNAME FROM GROUPS")
 
         builder.setTitle("Средняя оценка для группы").setView(view)

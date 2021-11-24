@@ -4,14 +4,16 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.bd_android_11.DatabaseHelper
 import com.example.bd_android_11.MainActivity
 import com.example.bd_android_11.R
 import com.example.bd_android_11.convertDate
+import com.example.bd_android_11.datePickers.DateListPicker
+import com.example.bd_android_11.datePickers.DatePickerBase
+import com.example.bd_android_11.datePickers.DatePickerRange
+import java.sql.Date
 
 class QueryDialog2(val activity: MainActivity) : AppCompatDialogFragment() {
 
@@ -19,8 +21,9 @@ class QueryDialog2(val activity: MainActivity) : AppCompatDialogFragment() {
 
     private var studentSpinner : Spinner? = null
     private var subjectSpinner : Spinner? = null
-    private var startDateEditText : EditText? = null
-    private var endDateEditText : EditText? = null
+    private var datePickerSpinner : Spinner? = null
+
+    private var datePicker : DatePickerBase? = null;
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dbHelper = DatabaseHelper(context)
@@ -31,26 +34,35 @@ class QueryDialog2(val activity: MainActivity) : AppCompatDialogFragment() {
 
         setupSpinner(studentSpinner, "SELECT STUDENTNAME FROM STUDENTS")
         setupSpinner(subjectSpinner, "SELECT SUBJECTNAME FROM SUBJECTS")
+        setupDatePickerSpinner(view);
 
         builder.setTitle("Средняя оценка для студента").setView(view)
         builder.setPositiveButton("ОК") { _, _ ->
             run {
                 val queryResult : MutableList<String> = mutableListOf()
+                val queryArguments : MutableList<String> = mutableListOf()
                 val student = studentSpinner?.selectedItem.toString()
                 val subject = subjectSpinner?.selectedItem.toString()
 
-                val startDate = convertDate(startDateEditText?.text.toString())
-                val endDate = convertDate(endDateEditText?.text.toString())
+                queryArguments.add(student)
+                queryArguments.add(subject)
+
+                if(datePickerSpinner?.selectedItemPosition  == 0){
+                    queryArguments.add((datePicker as DatePickerRange).getStartDate())
+                    queryArguments.add((datePicker as DatePickerRange).getEndDate())
+                }else{
+                    queryArguments.add((datePicker as DateListPicker).getOffset())
+                }
 
                 val db = dbHelper?.readableDatabase
                 val queryString = "SELECT STUDENTS.STUDENTNAME, SUBJECTS.SUBJECTNAME, AVG(PROGRESSES.MARK) 'AVERAGE MARK' " +
                         "FROM STUDENTS JOIN PROGRESSES ON STUDENTS.IDSTUDENT = PROGRESSES.IDSTUDENT " +
                         "JOIN SUBJECTS ON PROGRESSES.IDSUBJECT = SUBJECTS.IDSUBJECT " +
                         "WHERE STUDENTS.STUDENTNAME = ? AND SUBJECTS.SUBJECTNAME = ? " +
-                        "AND PROGRESSES.EXAMDATE BETWEEN ? AND ? " +
+                        "AND ${datePicker?.dateQueryString} " +
                         "GROUP BY STUDENTS.STUDENTNAME"
 
-                val cursor = db?.rawQuery(queryString, arrayOf(student, subject, startDate, endDate))
+                val cursor = db?.rawQuery(queryString, queryArguments.toTypedArray())
 
                 if(cursor?.moveToFirst() == true) {
                     val studentNameIndex = cursor.getColumnIndex("STUDENTNAME")
@@ -87,10 +99,33 @@ class QueryDialog2(val activity: MainActivity) : AppCompatDialogFragment() {
         spinner?.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, values)
     }
 
+    private fun setupDatePickerSpinner(view : View){
+        val dateRangePickerView : View = view.findViewById(R.id.dateRangePicker)
+        val dateListPickerView : View = view.findViewById(R.id.dateListPicker)
+
+        datePickerSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
+                if(index == 0){
+                    datePicker = DatePickerRange(dateRangePickerView)
+
+                    dateRangePickerView.visibility = View.VISIBLE
+                    dateListPickerView.visibility = View.GONE
+                }else{
+                    datePicker = DateListPicker(dateListPickerView)
+
+                    dateRangePickerView.visibility = View.GONE
+                    dateListPickerView.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+    }
+
     private fun findViews(view : View) {
         studentSpinner = view.findViewById(R.id.facultySpinner)
         subjectSpinner = view.findViewById(R.id.subjectSpinner)
-        startDateEditText = view.findViewById(R.id.startDateEditText)
-        endDateEditText = view.findViewById(R.id.endDateEditText)
+        datePickerSpinner = view.findViewById(R.id.datePickerSelectionSpinner)
     }
 }
