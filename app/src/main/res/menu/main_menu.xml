@@ -13,4 +13,7 @@
     <item
         android:id="@+id/query4"
         android:title="Список лучших студентов" />
+    <item
+        android:id="@+id/query5"
+        android:title="Сравнительный анализ по факультетам" />
 </menu>
