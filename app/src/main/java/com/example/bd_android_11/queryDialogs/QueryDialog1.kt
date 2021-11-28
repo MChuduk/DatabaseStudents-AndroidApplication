@@ -37,16 +37,8 @@ class QueryDialog1(val activity: MainActivity) : AppCompatDialogFragment() {
                 val subject = subjectSpinner?.selectedItem.toString()
 
                 val db = dbHelper?.readableDatabase
-                val queryString = "SELECT STUDENTS.IDSTUDENT, " +
-                        "GROUPS.IDGROUP, STUDENTS.STUDENTNAME, SUBJECTS.SUBJECTNAME, " +
-                        "AVG(PROGRESSES.MARK) 'AVERAGE MARK' " +
-                        "FROM GROUPS " +
-                        "JOIN STUDENTS ON GROUPS.IDGROUP = STUDENTS.IDGROUP " +
-                        "JOIN PROGRESSES ON PROGRESSES.IDSTUDENT = STUDENTS.IDSTUDENT " +
-                        "JOIN SUBJECTS ON SUBJECTS.IDSUBJECT = PROGRESSES.IDSUBJECT " +
-                        "WHERE GROUPS.GROUPNAME = ? AND " +
-                        "SUBJECTS.SUBJECTNAME = ? " +
-                        "GROUP BY STUDENTS.STUDENTNAME"
+                val queryString = "SELECT * FROM GROUP_AVERAGE_MARK_VIEW " +
+                        "WHERE GROUPNAME = ? AND SUBJECTNAME = ?"
 
                 val cursor = db?.rawQuery(queryString, arrayOf(group, subject))
 

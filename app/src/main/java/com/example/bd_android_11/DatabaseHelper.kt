@@ -11,11 +11,8 @@ class DatabaseHelper(val context: Context?) :
     SQLiteOpenHelper(context, "STUDENTSDB", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        createTableFaculty(db)
-        createTableGroup(db)
-        createTableStudent(db)
-        createTableSubject(db)
-        createTableProgress(db)
+        createTables(db)
+        createViews(db)
 
         initDataFrom(db, "FACULTIES", "data/faculties.csv")
         initDataFrom(db, "GROUPS", "data/groups.csv")
@@ -36,6 +33,27 @@ class DatabaseHelper(val context: Context?) :
 
     override fun onConfigure(db: SQLiteDatabase) {
         db.setForeignKeyConstraintsEnabled(true)
+    }
+
+    private fun createTables(db: SQLiteDatabase?) {
+        createTableFaculty(db)
+        createTableGroup(db)
+        createTableStudent(db)
+        createTableSubject(db)
+        createTableProgress(db)
+    }
+
+    private fun createViews(db: SQLiteDatabase?) {
+        createGroupAverageMarkView(db);
+    }
+
+    private fun createGroupAverageMarkView(db: SQLiteDatabase?){
+        db?.execSQL("CREATE VIEW GROUP_AVERAGE_MARK_VIEW AS SELECT " +
+                "STUDENTS.IDSTUDENT, GROUPS.IDGROUP, STUDENTS.STUDENTNAME, GROUPS.GROUPNAME, SUBJECTS.SUBJECTNAME, AVG(PROGRESSES.MARK) 'AVERAGE MARK' " +
+                "FROM GROUPS JOIN STUDENTS ON GROUPS.IDGROUP = STUDENTS.IDGROUP " +
+                "JOIN PROGRESSES ON PROGRESSES.IDSTUDENT = STUDENTS.IDSTUDENT " +
+                "JOIN SUBJECTS ON SUBJECTS.IDSUBJECT = PROGRESSES.IDSUBJECT " +
+                "GROUP BY STUDENTS.STUDENTNAME")
     }
 
     private fun createTableFaculty(db: SQLiteDatabase?) {
