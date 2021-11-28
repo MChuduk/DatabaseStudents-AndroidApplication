@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                 val queryDialog = QueryDialog5(this)
                 queryDialog.show(supportFragmentManager, "query5")
             }
+            R.id.query6 -> {
+                val viewer = IndexViewer()
+                viewer.showIndexesFor(this,"STUDENTS")
+            }
         }
         return super.onOptionsItemSelected(item)
     }

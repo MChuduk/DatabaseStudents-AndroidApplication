@@ -13,6 +13,7 @@ class DatabaseHelper(val context: Context?) :
     override fun onCreate(db: SQLiteDatabase?) {
         createTables(db)
         createViews(db)
+        createStudentsIndex(db)
 
         initDataFrom(db, "FACULTIES", "data/faculties.csv")
         initDataFrom(db, "GROUPS", "data/groups.csv")
@@ -54,6 +55,10 @@ class DatabaseHelper(val context: Context?) :
                 "JOIN PROGRESSES ON PROGRESSES.IDSTUDENT = STUDENTS.IDSTUDENT " +
                 "JOIN SUBJECTS ON SUBJECTS.IDSUBJECT = PROGRESSES.IDSUBJECT " +
                 "GROUP BY STUDENTS.STUDENTNAME")
+    }
+
+    private fun createStudentsIndex(db: SQLiteDatabase?) {
+        db?.execSQL("CREATE UNIQUE INDEX idx_StudName on STUDENTS (STUDENTNAME)")
     }
 
     private fun createTableFaculty(db: SQLiteDatabase?) {

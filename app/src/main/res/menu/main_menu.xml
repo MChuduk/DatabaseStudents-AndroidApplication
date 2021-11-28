@@ -16,4 +16,7 @@
     <item
         android:id="@+id/query5"
         android:title="Сравнительный анализ по факультетам" />
+    <item
+        android:id="@+id/query6"
+        android:title="Список индексов" />
 </menu>
