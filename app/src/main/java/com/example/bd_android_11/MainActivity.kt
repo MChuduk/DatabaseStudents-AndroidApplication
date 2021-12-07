@@ -1,8 +1,10 @@
 package com.example.bd_android_11
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,6 +54,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun onAddDataButtonClick(view : View) {
+        val intent = Intent(this, AddDataActivity::class.java);
+        startActivity(intent)
     }
 
     fun setQueryResult(result : MutableList<String>) {

@@ -15,6 +15,9 @@ class DatabaseHelper(val context: Context?) :
         createViews(db)
         createStudentsIndex(db)
 
+        createTrigger1(db)
+        createTrigger2(db)
+
         initDataFrom(db, "FACULTIES", "data/faculties.csv")
         initDataFrom(db, "GROUPS", "data/groups.csv")
         initDataFrom(db, "STUDENTS", "data/students.csv")
@@ -46,6 +49,39 @@ class DatabaseHelper(val context: Context?) :
 
     private fun createViews(db: SQLiteDatabase?) {
         createGroupAverageMarkView(db);
+        createStudView(db);
+    }
+
+    private fun createTrigger1(db: SQLiteDatabase?) {
+        db?.execSQL("create trigger if not exists trgr_STUD_INSERT " +
+                "before insert on STUDENTS " +
+                "begin " +
+                "select case " +
+                "when (select count(IDSTUDENT) " +
+                "from STUDENTS " +
+                "where IDGROUP = NEW.IDGROUP) >= 6 " +
+                "then " +
+                "raise(abort, 'there must be less than 6 students in the group') " +
+                "end; " +
+                "end;")
+    }
+
+    private fun createTrigger2(db: SQLiteDatabase?) {
+        db?.execSQL("create trigger if not exists trgr_STUD_DELETE before delete on STUDENTS " +
+                "begin select case " +
+                "when (select count(IDSTUDENT) from STUDENTS where IDGROUP = OLD.IDGROUP) <= 3 " +
+                "then " +
+                "raise(abort, 'there can be no less than 3 students in a group') " +
+                "end; " +
+                "end;")
+    }
+
+    private fun createTrigger3(db: SQLiteDatabase?) {
+        db?.execSQL("create trigger trgr_STUD_UPDATE instead of update on STUD_VIEW " +
+                "begin update STUDENTS " +
+                "set STUDENTNAME = NEW.STUDENTNAME, IDGROUP = NEW.IDGROUP, BIRTHDAY = NEW.BIRTHDAY, ADDRESS = NEW.ADDRESS " +
+                "where IDSTUDENT = NEW.IDSTUDENT; " +
+                "end;")
     }
 
     private fun createGroupAverageMarkView(db: SQLiteDatabase?){
@@ -55,6 +91,10 @@ class DatabaseHelper(val context: Context?) :
                 "JOIN PROGRESSES ON PROGRESSES.IDSTUDENT = STUDENTS.IDSTUDENT " +
                 "JOIN SUBJECTS ON SUBJECTS.IDSUBJECT = PROGRESSES.IDSUBJECT " +
                 "GROUP BY STUDENTS.STUDENTNAME")
+    }
+
+    private fun createStudView(db: SQLiteDatabase?) {
+        db?.execSQL("CREATE VIEW STUD_VIEW AS SELECT * FROM STUDENTS;")
     }
 
     private fun createStudentsIndex(db: SQLiteDatabase?) {
