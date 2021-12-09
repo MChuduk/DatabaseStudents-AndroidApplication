@@ -17,6 +17,7 @@ class DatabaseHelper(val context: Context?) :
 
         createTrigger1(db)
         createTrigger2(db)
+        createTrigger3(db)
 
         initDataFrom(db, "FACULTIES", "data/faculties.csv")
         initDataFrom(db, "GROUPS", "data/groups.csv")
